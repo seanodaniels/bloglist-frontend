@@ -50,6 +50,23 @@ const App = () => {
     }
   }
 
+  const handleLikeSubmit = (id) => {
+    const currentBloglist = blogs.find(b => b.id === id)
+    const changedBlogListing = { ...currentBloglist, likes: currentBloglist.likes+1 }
+
+    blogService
+      .update(id, changedBlogListing)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(b => b.id !== id ? b : changedBlogListing))
+      })
+      .catch(e => {
+        setErrorMessage(`error with like on ${id}: ${e}`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
+
   const handleLogout = (event) => {
     event.preventDefault()
     setNotificationMessage(`${user.username} logged out.`)
@@ -66,10 +83,15 @@ const App = () => {
 
   const addBloglist = (blogObject) => {
     bloglistFormRef.current.toggleVisibility()
+    console.log('currentuser:', user.username)
+
+    console.log('test:', blogs[blogs.length-1].user.username)
+
     blogService
     .create(blogObject)
     .then(o => {
-      setBlogs(blogs.concat(o))
+      const addUserToBlog = { ...o, user: user } // add in missing user
+      setBlogs(blogs.concat(addUserToBlog))
       setNotificationMessage(`a new blog "${o.title}" by ${o.author} added`)
     })
     .catch(error => {
@@ -129,12 +151,13 @@ const App = () => {
           </Togglable>   
         </div> 
 
-        <div className="blogListElement">
 
           {blogs.map(blog => {
             return (
-              <div key={blog.id} className="blogShowElement">
-                <ToggleBlogView blog={blog} />
+              <div key={blog.id} className="blogListElement">
+                <div className="blogShowElement">
+                  <ToggleBlogView blog={blog} handleLikeSubmit={() => handleLikeSubmit(blog.id)} />
+                </div>
               </div>
             )
             })}
@@ -143,7 +166,6 @@ const App = () => {
           {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
           )} */}
-        </div>
       </div>
     )
   }
