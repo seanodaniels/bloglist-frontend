@@ -43,3 +43,14 @@ body {
     padding: 10px;
     margin-bottom: 10px;
   }
+
+  .loginBox {
+    border: 1px solid #fff;
+    padding: 1em;
+    margin: 0 0 1em 0;
+    width: 20%;
+  }
+
+  .blogListElement {
+    margin: 0 0 1em 0;
+  }
