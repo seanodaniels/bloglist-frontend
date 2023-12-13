@@ -80,12 +80,8 @@ const App = () => {
     setPassword('')    
   }
 
-
   const addBloglist = (blogObject) => {
     bloglistFormRef.current.toggleVisibility()
-    console.log('currentuser:', user.username)
-
-    console.log('test:', blogs[blogs.length-1].user.username)
 
     blogService
     .create(blogObject)
@@ -96,10 +92,8 @@ const App = () => {
     })
     .catch(error => {
       console.log('CREATE ERROR:', error)
-    })
-    
+    })    
   }
-
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
