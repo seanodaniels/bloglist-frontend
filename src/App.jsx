@@ -7,6 +7,7 @@ import ErrorMessage from './components/ErrorMessage'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import BlogListForm from './components/BlogListForm'
+import ToggleBlogView from './components/ToggleBlogView'
 
 
 const App = () => {
@@ -130,9 +131,18 @@ const App = () => {
 
         <div className="blogListElement">
 
+          {blogs.map(blog => {
+            return (
+              <div key={blog.id} className="blogShowElement">
+                <ToggleBlogView blog={blog} />
+              </div>
+            )
+            })}
+
+          {/* <hr />
           {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
-          )}
+          )} */}
         </div>
       </div>
     )

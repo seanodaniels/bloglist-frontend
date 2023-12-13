@@ -54,3 +54,13 @@ body {
   .blogListElement {
     margin: 0 0 1em 0;
   }
+
+  .blogShowElement {
+    border: 1px solid #fff;
+    padding: 0.5em;
+    margin: 0 0 0.5em 0;
+  }
+
+  .blogTitle {
+    margin-right: 0.5em;
+  }
