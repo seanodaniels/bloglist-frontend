@@ -28,7 +28,7 @@ const BlogListForm = ({ createBlog }) => {
         author: <input value={author} onChange={(event) => setAuthor(event.target.value)} /><br />
         url: <input value={url} onChange={(event) => setUrl(event.target.value)} /><br />
         <button type="submit">save</button>
-      </form>             
+      </form>
     </div>
   )
 }

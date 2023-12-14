@@ -1,6 +1,7 @@
-import { 
+import {
   useState
-} from 'react' 
+} from 'react'
+
 
 const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
   const [show, setShow] = useState(false)
@@ -21,11 +22,10 @@ const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
         {blog.url}<br />
         {blog.likes}<button onClick={handleLikeSubmit} type="submit">Like</button><br />
         {blog.user.name}<br />
-        <button onClick={handleDeleteSubmit} type="submit">Delete</button>    
-      </div>  
+        <button onClick={handleDeleteSubmit} type="submit">Delete</button>
+      </div>
     </div>
   )
-
 }
 
 export default ToggleBlogView

@@ -17,7 +17,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  
+
   const bloglistFormRef = useRef()
 
   const handleLogin = async (event) => {
@@ -41,7 +41,7 @@ const App = () => {
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
-  
+
     } catch (exception) {
       setErrorMessage('wrong username or password')
       setTimeout(() => {
@@ -81,7 +81,7 @@ const App = () => {
           setErrorMessage(`error with deletion of ${id}: ${e}`)
           setTimeout(() => {
             setErrorMessage(null)
-          }, 5000) 
+          }, 5000)
         })
     }
   }
@@ -97,29 +97,29 @@ const App = () => {
     window.localStorage.removeItem('loggedBloglistUser')
     setUser(null)
     setUsername('')
-    setPassword('')    
+    setPassword('')
   }
 
   const addBloglist = (blogObject) => {
     bloglistFormRef.current.toggleVisibility()
 
     blogService
-    .create(blogObject)
-    .then(o => {
-      const addUserToBlog = { ...o, user: user } // add in missing user
-      const blogsWithNewentry = blogs.concat(addUserToBlog)
-      setBlogs(blogsWithNewentry.sort((a, b) => b.likes - a.likes))
-      setNotificationMessage(`a new blog "${o.title}" by ${o.author} added`)
-    })
-    .catch(error => {
-      console.log('CREATE ERROR:', error)
-    })    
+      .create(blogObject)
+      .then(o => {
+        const addUserToBlog = { ...o, user: user } // add in missing user
+        const blogsWithNewentry = blogs.concat(addUserToBlog)
+        setBlogs(blogsWithNewentry.sort((a, b) => b.likes - a.likes))
+        setNotificationMessage(`a new blog "${o.title}" by ${o.author} added`)
+      })
+      .catch(error => {
+        console.log('CREATE ERROR:', error)
+      })
   }
-       
+
 
   useEffect(() => {
     blogService.getAll()
-    .then(blogs => setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
+      .then(blogs => setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
 
   }, [])
 
@@ -137,14 +137,14 @@ const App = () => {
       <div>
         <Togglable buttonLabel='login'>
           <LoginForm
-            handleSubmit={handleLogin} 
-            handleUsernameChange={({ target }) => setUsername(target.value)} 
+            handleSubmit={handleLogin}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
             handlePasswordChange={({ target }) => setPassword(target.value)}
-            username={username} 
-            password={password} 
+            username={username}
+            password={password}
           />
         </Togglable>
-    </div>
+      </div>
     )
   }
 
@@ -152,40 +152,35 @@ const App = () => {
     return (
       <div>
         <div className='loginBox'>
-          {user.name} logged in         
+          {user.name} logged in
           <form onSubmit={handleLogout}>
             <button type="submit">logout</button>
           </form>
         </div>
 
-        
+
         <div className="blogListElement">
           <Togglable buttonLabel='add new blog listing' ref={bloglistFormRef}>
             <BlogListForm
-              createBlog={addBloglist} 
-            />   
-          </Togglable>   
-        </div> 
+              createBlog={addBloglist}
+            />
+          </Togglable>
+        </div>
 
 
-          {blogs.map(blog => {
-            return (
-              <div key={blog.id} className="blogListElement">
-                <div className="blogShowElement">
-                  <ToggleBlogView 
-                    blog={blog} 
-                    handleLikeSubmit={() => handleLikeSubmit(blog.id)} 
-                    handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
-                  />
-                </div>
+        {blogs.map(blog => {
+          return (
+            <div key={blog.id} className="blogListElement">
+              <div className="blogShowElement">
+                <ToggleBlogView
+                  blog={blog}
+                  handleLikeSubmit={() => handleLikeSubmit(blog.id)}
+                  handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
+                />
               </div>
-            )
-            })}
-
-          {/* <hr />
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )} */}
+            </div>
+          )
+        })}
       </div>
     )
   }
