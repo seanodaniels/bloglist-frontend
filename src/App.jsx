@@ -56,8 +56,9 @@ const App = () => {
 
     blogService
       .update(id, changedBlogListing)
-      .then(returnedBlog => {
-        setBlogs(blogs.map(b => b.id !== id ? b : changedBlogListing))
+      .then(o => {
+        const newBlogListing = blogs.map(b => b.id !== id ? b : changedBlogListing)
+        setBlogs(newBlogListing.sort((a, b) => b.likes - a.likes))
       })
       .catch(e => {
         setErrorMessage(`error with like on ${id}: ${e}`)
@@ -87,18 +88,20 @@ const App = () => {
     .create(blogObject)
     .then(o => {
       const addUserToBlog = { ...o, user: user } // add in missing user
-      setBlogs(blogs.concat(addUserToBlog))
+      const blogsWithNewentry = blogs.concat(addUserToBlog)
+      setBlogs(blogsWithNewentry.sort((a, b) => b.likes - a.likes))
       setNotificationMessage(`a new blog "${o.title}" by ${o.author} added`)
     })
     .catch(error => {
       console.log('CREATE ERROR:', error)
     })    
   }
+       
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    blogService.getAll()
+    .then(blogs => setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
+
   }, [])
 
   useEffect(() => {
