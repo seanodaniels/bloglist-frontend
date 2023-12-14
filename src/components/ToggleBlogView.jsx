@@ -2,7 +2,7 @@ import {
   useState
 } from 'react' 
 
-const ToggleBlogView = ({ blog, handleLikeSubmit }) => {
+const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
   const [show, setShow] = useState(false)
 
   const showSummary = { display: show ? '' : 'none' }
@@ -20,7 +20,8 @@ const ToggleBlogView = ({ blog, handleLikeSubmit }) => {
       <div style={showSummary}>
         {blog.url}<br />
         {blog.likes}<button onClick={handleLikeSubmit} type="submit">Like</button><br />
-        {blog.user.name}        
+        {blog.user.name}<br />
+        <button onClick={handleDeleteSubmit} type="submit">Delete</button>    
       </div>  
     </div>
   )

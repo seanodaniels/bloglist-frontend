@@ -68,6 +68,25 @@ const App = () => {
       })
   }
 
+  const handleDeleteSubmit = (id) => {
+    let confirmDelete = `Remove blog "${blogs.find(b => b.id === id).title}"`
+    if (window.confirm(confirmDelete)) {
+      blogService
+        .deleteBloglist(id)
+        .then(o => {
+          const newBlogListing = blogs.filter(b => b.id !== id)
+          setBlogs(newBlogListing.sort((a, b) => b.likes - a.likes))
+        })
+        .catch(e => {
+          setErrorMessage(`error with deletion of ${id}: ${e}`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000) 
+        })
+    }
+  }
+
+
   const handleLogout = (event) => {
     event.preventDefault()
     setNotificationMessage(`${user.username} logged out.`)
@@ -153,7 +172,11 @@ const App = () => {
             return (
               <div key={blog.id} className="blogListElement">
                 <div className="blogShowElement">
-                  <ToggleBlogView blog={blog} handleLikeSubmit={() => handleLikeSubmit(blog.id)} />
+                  <ToggleBlogView 
+                    blog={blog} 
+                    handleLikeSubmit={() => handleLikeSubmit(blog.id)} 
+                    handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
+                  />
                 </div>
               </div>
             )
