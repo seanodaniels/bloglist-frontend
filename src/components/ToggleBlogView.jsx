@@ -20,7 +20,7 @@ const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
       <button className="button-hide" style={showSummary} onClick={() => toggleShow()}>hide</button>
       <div style={showSummary}>
         <span className="blog-url">{blog.url}</span><br />
-        <span className="blog-likes">{blog.likes}</span><button onClick={handleLikeSubmit} type="submit">Like</button><br />
+        <span className="blog-likes">{blog.likes}</span><button onClick={handleLikeSubmit} className="button-like" type="submit">Like</button><br />
         <span className="blog-username">{blog.user.name}</span><br />
         <button onClick={handleDeleteSubmit} type="submit">Delete</button>
       </div>
