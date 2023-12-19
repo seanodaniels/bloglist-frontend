@@ -15,13 +15,13 @@ const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
 
   return (
     <div>
-      <span className="blogTitle">{blog.title} by {blog.author}</span>
-      <button style={hideSummary} onClick={() => toggleShow()}>view</button>
-      <button style={showSummary} onClick={() => toggleShow()}>hide</button>
+      <span className="blog-title">{blog.title}</span> by <span className="blog-author">{blog.author}</span>
+      <button className="button-view" style={hideSummary} onClick={() => toggleShow()}>view</button>
+      <button className="button-hide" style={showSummary} onClick={() => toggleShow()}>hide</button>
       <div style={showSummary}>
-        {blog.url}<br />
-        {blog.likes}<button onClick={handleLikeSubmit} type="submit">Like</button><br />
-        {blog.user.name}<br />
+        <span className="blog-url">{blog.url}</span><br />
+        <span className="blog-likes">{blog.likes}</span><button onClick={handleLikeSubmit} type="submit">Like</button><br />
+        <span className="blog-username">{blog.user.name}</span><br />
         <button onClick={handleDeleteSubmit} type="submit">Delete</button>
       </div>
     </div>
