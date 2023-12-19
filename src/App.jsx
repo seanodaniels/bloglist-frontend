@@ -160,27 +160,28 @@ const App = () => {
 
 
         <div className="blogListElement">
-          <Togglable buttonLabel='add new blog listing' ref={bloglistFormRef}>
+          <Togglable className="add-new" buttonLabel='add new blog listing' ref={bloglistFormRef}>
             <BlogListForm
               createBlog={addBloglist}
             />
           </Togglable>
         </div>
 
-
-        {blogs.map(blog => {
-          return (
-            <div key={blog.id} className="blogListElement">
-              <div className="blogShowElement">
-                <ToggleBlogView
-                  blog={blog}
-                  handleLikeSubmit={() => handleLikeSubmit(blog.id)}
-                  handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
-                />
+        <div id="list-of-blogs">
+          {blogs.map(blog => {
+            return (
+              <div key={blog.id} className="blogListElement">
+                <div className="blogShowElement">
+                  <ToggleBlogView
+                    blog={blog}
+                    handleLikeSubmit={() => handleLikeSubmit(blog.id)}
+                    handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
+                  />
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     )
   }

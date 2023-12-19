@@ -24,10 +24,10 @@ const BlogListForm = ({ createBlog }) => {
     <div>
       <h2>Enter a new blog</h2>
       <form onSubmit={addBlogList}>
-        title: <input value={title} onChange={(event) => setTitle(event.target.value)} /><br />
-        author: <input value={author} onChange={(event) => setAuthor(event.target.value)} /><br />
-        url: <input value={url} onChange={(event) => setUrl(event.target.value)} /><br />
-        <button type="submit">save</button>
+        title: <input className="new-title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
+        author: <input className="new-author" value={author} onChange={(event) => setAuthor(event.target.value)} /><br />
+        url: <input className="new-url" value={url} onChange={(event) => setUrl(event.target.value)} /><br />
+        <button className="submit-new-blog" type="submit">save</button>
       </form>
     </div>
   )
