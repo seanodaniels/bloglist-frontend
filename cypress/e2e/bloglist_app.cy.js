@@ -102,7 +102,7 @@ describe('Blog app', function() {
       cy.get('.notification').should('contain', 'liked')
     })
 
-    it.only('Blogs are listed in descending order of likes', function() {
+    it('Blogs are listed in descending order of likes', function() {
 
       // Post - the second most likes
       cy.contains('add new blog listing').click()
