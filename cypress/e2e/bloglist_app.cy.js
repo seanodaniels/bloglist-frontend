@@ -102,7 +102,7 @@ describe('Blog app', function() {
       cy.get('.notification').should('contain', 'liked')
     })
 
-    it.only('A user can delete a post of theirs', function() {
+    it('A user can delete a post of theirs', function() {
       cy.contains('add new blog listing').click()
       cy.get('.new-title').type('cypress title')
       cy.get('.new-author').type('cypress author')
@@ -116,6 +116,37 @@ describe('Blog app', function() {
       cy.get('@theContainerDiv').find('.button-delete').click()
 
       cy.get('.notification').should('contain', 'Blog deleted')
+    })
+
+    it('A user can only see delete button for posts they authored', function() {
+      // Create a new blog post as current user, then logout
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('cypress title')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+      cy.get('.login-logout').click()
+
+      // Add a second user
+      const user2 = {
+        name: 'Second User',
+        username: 'seconduser',
+        password: 'secretpassword',
+      }
+      cy.request('POST', `${Cypress.env('BACKEND')}/api/users/`, user2)
+
+      // Login as second user
+      cy.contains('login').click()
+      cy.get('.login-username').type('seconduser')
+      cy.get('.login-password').type('secretpassword')
+      cy.get('.login-submit').click()
+
+      // Attempt to delete blog post and fail
+      cy.get('#list-of-blogs')
+        .contains('cypress title')
+        .parent().as('theContainerDiv')
+      cy.get('@theContainerDiv').find('.button-view').click()
+      cy.get('@theContainerDiv').should('not.contain', '.button-delete')
     })
   })
 })
