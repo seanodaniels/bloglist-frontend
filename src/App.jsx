@@ -80,6 +80,11 @@ const App = () => {
         .then(o => {
           const newBlogListing = blogs.filter(b => b.id !== id)
           setBlogs(newBlogListing.sort((a, b) => b.likes - a.likes))
+          setNotificationMessage('Blog deleted')
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
+  
         })
         .catch(e => {
           setErrorMessage(`error with deletion of ${id}: ${e}`)
@@ -114,6 +119,9 @@ const App = () => {
         const blogsWithNewentry = blogs.concat(addUserToBlog)
         setBlogs(blogsWithNewentry.sort((a, b) => b.likes - a.likes))
         setNotificationMessage(`a new blog "${o.title}" by ${o.author} added`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
       .catch(error => {
         console.log('CREATE ERROR:', error)

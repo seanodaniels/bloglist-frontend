@@ -22,7 +22,7 @@ const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
         <span className="blog-url">{blog.url}</span><br />
         <span className="blog-likes">{blog.likes}</span><button onClick={handleLikeSubmit} className="button-like" type="submit">Like</button><br />
         <span className="blog-username">{blog.user.name}</span><br />
-        <button onClick={handleDeleteSubmit} type="submit">Delete</button>
+        <button className="button-delete" onClick={handleDeleteSubmit} type="submit">Delete</button>
       </div>
     </div>
   )
