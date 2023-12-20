@@ -59,6 +59,10 @@ const App = () => {
       .then(o => {
         const newBlogListing = blogs.map(b => b.id !== id ? b : changedBlogListing)
         setBlogs(newBlogListing.sort((a, b) => b.likes - a.likes))
+        setNotificationMessage(`${changedBlogListing.title} liked.`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
       .catch(e => {
         setErrorMessage(`error with like on ${id}: ${e}`)
