@@ -185,7 +185,8 @@ const App = () => {
               <div key={blog.id} className="blogListElement">
                 <div className="blogShowElement">
                   <ToggleBlogView
-                    blog={blog}
+                    blog={blog} 
+                    currentUsername={user.username} 
                     handleLikeSubmit={() => handleLikeSubmit(blog.id)}
                     handleDeleteSubmit={() => handleDeleteSubmit(blog.id)}
                   />

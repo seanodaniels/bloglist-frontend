@@ -3,11 +3,17 @@ import {
 } from 'react'
 
 
-const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
+const ToggleBlogView = ({ blog, currentUsername, handleLikeSubmit, handleDeleteSubmit }) => {
   const [show, setShow] = useState(false)
 
   const showSummary = { display: show ? '' : 'none' }
   const hideSummary = { display: show ? 'none' : '' }
+
+  const testingThing = () => {
+    return (
+      <button className="button-delete" onClick={handleDeleteSubmit} type="submit">Delete</button>
+    )
+  }
 
   const toggleShow = () => {
     setShow(!show)
@@ -22,7 +28,8 @@ const ToggleBlogView = ({ blog, handleLikeSubmit, handleDeleteSubmit }) => {
         <span className="blog-url">{blog.url}</span><br />
         <span className="blog-likes">{blog.likes}</span><button onClick={handleLikeSubmit} className="button-like" type="submit">Like</button><br />
         <span className="blog-username">{blog.user.name}</span><br />
-        <button className="button-delete" onClick={handleDeleteSubmit} type="submit">Delete</button>
+        { currentUsername === blog.user.name ? testingThing() : null }
+        
       </div>
     </div>
   )
