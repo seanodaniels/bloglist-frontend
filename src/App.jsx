@@ -154,7 +154,7 @@ const App = () => {
         <div className='loginBox'>
           {user.name} logged in
           <form onSubmit={handleLogout}>
-            <button type="submit">logout</button>
+            <button className="login-logout" type="submit">logout</button>
           </form>
         </div>
 
