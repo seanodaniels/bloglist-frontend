@@ -60,4 +60,30 @@ describe('Blog app', function() {
       cy.get('.error-message').should('contain', 'wrong username or password')
     })
   })
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      const user = {
+        name: 'Sean ODaniels',
+        username: 'sean',
+        password: 'secret',
+      }
+      cy.request('POST', `${Cypress.env('BACKEND')}/api/users/`, user)
+      cy.visit('')
+      cy.contains('login').click()
+      cy.get('.login-username').type('sean')
+      cy.get('.login-password').type('secret')
+      cy.get('.login-submit').click()
+    })
+
+    it('A blog can be created', function() {
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('cypress title')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+
+      cy.get('#list-of-blogs').should('contain', 'cypress title')
+    })
+  })
 })
