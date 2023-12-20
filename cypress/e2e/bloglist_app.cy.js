@@ -102,6 +102,89 @@ describe('Blog app', function() {
       cy.get('.notification').should('contain', 'liked')
     })
 
+    it.only('Blogs are listed in descending order of likes', function() {
+
+      // Post - the second most likes
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('The title with the second most likes')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+
+      cy.get('#list-of-blogs')
+        .contains('The title with the second most likes')
+        .parent().as('container1')
+      cy.get('@container1').find('.button-view').click()
+
+      cy.get('@container1').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container1').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container1').find('.button-like').click()
+      cy.wait(3000)
+
+      // Post - the least number of likes
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('The title with the least likes')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+
+      cy.get('#list-of-blogs')
+        .contains('The title with the least likes')
+        .parent().as('container2')
+      cy.get('@container2').find('.button-view').click()
+
+      cy.get('@container2').find('.button-like').click()
+      cy.wait(3000)
+
+      // Post - the most likes
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('The title with the most likes')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+
+      cy.get('#list-of-blogs')
+        .contains('The title with the most likes')
+        .parent().as('container3')
+      cy.get('@container3').find('.button-view').click()
+
+      cy.get('@container3').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container3').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container3').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container3').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container3').find('.button-like').click()
+      cy.wait(3000)
+
+      // Post - the third most likes
+      cy.contains('add new blog listing').click()
+      cy.get('.new-title').type('The title with the third most likes')
+      cy.get('.new-author').type('cypress author')
+      cy.get('.new-url').type('cypress url')
+      cy.get('.submit-new-blog').click()
+
+      cy.get('#list-of-blogs')
+        .contains('The title with the third most likes')
+        .parent().as('container4')
+      cy.get('@container4').find('.button-view').click()
+
+      cy.get('@container4').find('.button-like').click()
+      cy.wait(3000)
+      cy.get('@container4').find('.button-like').click()
+
+      // Now test the order
+      cy.wait(1000)
+      cy.get('.listing').eq(0).should('contain', 'The title with the most likes')
+      cy.get('.listing').eq(1).should('contain', 'The title with the second most likes')
+      cy.get('.listing').eq(2).should('contain', 'The title with the third most likes')
+      cy.get('.listing').eq(3).should('contain', 'The title with the least likes')
+    })
+
     it('A user can delete a post of theirs', function() {
       cy.contains('add new blog listing').click()
       cy.get('.new-title').type('cypress title')

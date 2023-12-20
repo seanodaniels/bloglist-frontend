@@ -182,7 +182,7 @@ const App = () => {
         <div id="list-of-blogs">
           {blogs.map(blog => {
             return (
-              <div key={blog.id} className="blogListElement">
+              <div key={blog.id} className="blogListElement listing">
                 <div className="blogShowElement">
                   <ToggleBlogView
                     blog={blog} 
